@@ -1,0 +1,32 @@
+{* This is the welcome page, you can delete it *}
+
+{block content}
+
+<div id="content">
+    <h2>Aktuality</h2>
+    <section id="aktuality">
+        <article n:foreach="$news as $novina">
+            <header>
+                <h3>{$novina->title|upper}</h3>
+                <p class="date">{$novina->created_at|date:'j. n. Y'}, {$novina->category}</p>
+            </header>
+            <div>{$novina->content|truncate:500}</div>
+                <p class="autor"><a n:href="News:show $novina->id">čtěte dále...</a></p>
+                <footer>Autor: </footer>
+        </article>    
+    </section>
+
+    <hr>
+    <footer>&copy; VIS - Varys Information Service 2015</footer>
+</div>
+{/block}
+
+{block scripts}
+{include parent}
+{/block}
+
+
+{block head}
+<style>
+</style>
+{/block}

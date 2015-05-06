@@ -1,0 +1,44 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>{ifset title}{include title|striptags} | {/ifset}Nette Sandbox</title>
+
+	<link rel="stylesheet" href="{$basePath}/css/style.css">
+	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+	{block head}{/block}
+</head>
+
+<body>
+            <nav class="row">
+                <ul>
+                    <li><a n:href="Homepage:">Úvodní stránka</a></li>
+                    {if $user->loggedIn}
+                        <li><a n:href="Sign:out">Odhlásit</a></li>
+                        <li><a n:href="News:list id">Seznam zpráv</a></li>
+                    {else}
+                        <li><a n:href="Sign:in">Přihlásit</a></li>
+                    {/if}
+                </ul>
+            </nav>    
+        <div id="banner">
+            <h1>King's Landing News</h1>
+        </div>
+    
+	<div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+
+	{include content}
+
+	{block scripts}
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script src="//nette.github.io/resources/js/netteForms.min.js"></script>
+	<script src="{$basePath}/js/main.js"></script>
+	{/block}
+</body>
+</html>
