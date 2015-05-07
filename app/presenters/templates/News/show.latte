@@ -1,0 +1,28 @@
+{* Latte template *}
+
+{block content}
+<h2>{$news->title}</h2>
+<div class="date">{$news->created_at|date:'j. n. Y'}</div>
+<div class="autor">Autor článku: {$users->get($news->user_id)->name}</div>
+<div class="post">{$news->content}</div>
+
+{if $user->loggedIn}<a n:href="edit $news->id">Editovat příspěvek</a>{/if}
+{if $user->loggedIn}<a n:href="delete $news->id">Smazat příspěvek</a>{/if}
+
+{if $user->loggedIn}
+<h3>Vložte nový komentář</h3>
+{control commentForm}
+{/if}
+
+{if count($comments) > 0}
+<h2>Komentáře</h2>
+
+<div class="comments">
+    {foreach $comments as $comment}
+        <p><b><a href="mailto:{$users->get($comment->user_id)->email}" n:tag-if="$users->get($comment->user_id)->email">{$users->get($comment->user_id)->name}</a></b> napsal:</p>
+        <div>{$comment->content}</div>
+    {/foreach}
+</div>
+{/if}
+<p><a n:href="Homepage:default">← zpět na úvodní stranu</a></p>
+{/block}
